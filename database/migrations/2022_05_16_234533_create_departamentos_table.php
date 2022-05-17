@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('departamentos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_gerente');
-            $table->foreign('id_gerente')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('id_gerente')->nullable();
+            $table->foreign('id_gerente')->nullable()->references('id')->on('usuarios');
             $table->string('nome', 80);
             $table->timestamps();
         });

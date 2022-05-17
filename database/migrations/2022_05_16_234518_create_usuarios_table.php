@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             //PRIMEIRO SE CRIA A COLUNA QUE IRÁ RECEBER A FOREING KEY DESEJADA
-            $table->unsignedBigInteger('id_departamento');
+            $table->unsignedBigInteger('id_departamento')->nullable();
             //SE ADICIONA A CONSTRAINT NA COLUNA RECEM CRIADA
-            $table->foreignIdFor(Departamentos::class)->constrained();
+            $table->foreign('id_departamento')->nullable()->references('id')->on('departamentos');
             $table->string('nome', 128);
             $table->string('telefone', 16);
             $table->string('perfil', 2);

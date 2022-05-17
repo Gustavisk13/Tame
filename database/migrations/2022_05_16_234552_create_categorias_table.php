@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_categoria_pai');
-            $table->foreign('id_categoria_pai')->references('id')->on('categorias');
+            $table->unsignedBigInteger('id_categoria_pai')->nullable();
+            $table->foreign('id_categoria_pai')->nullable()->references('id')->on('categorias');
             $table->string('nome', 80);
             $table->timestamps();
         });
