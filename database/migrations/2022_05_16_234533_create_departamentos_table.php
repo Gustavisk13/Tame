@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tarefas', function (Blueprint $table) {
+        Schema::create('departamentos', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo', 1);
-            $table->string('descricao', 4000);
-            $table->integer('tempo',false, false);
+            $table->unsignedBigInteger('id_gerente');
+            $table->foreign('id_gerente')->references('id')->on('usuarios');
+            $table->string('nome', 80);
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tarefas');
+        Schema::dropIfExists('departamentos');
     }
 };

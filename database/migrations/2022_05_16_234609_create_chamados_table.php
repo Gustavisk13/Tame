@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('chamados', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_usuario');
+            $table->foreign('id_usuario')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('id_atendente');
+            $table->foreign('id_atendente')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->unsignedBigInteger('id_chamado_pai');
+            $table->foreign('id_chamado_pai')->references('id')->on('chamados');
             $table->string('titulo', 128);
             $table->string('descricao', 4000);
             $table->string('impacto', 1);
@@ -22,7 +30,6 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
