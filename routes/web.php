@@ -14,8 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/api/usuarios',[UsuariosController::class,'index']);
+Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
