@@ -30,4 +30,9 @@ class Chamados extends Model
     {
         return $this->belongsTo(Chamados::class);
     }
+    //FK_ID_DEPARTAMENTOS
+    public function departamentos()
+    {
+        return $this->belongsTo(Departamentos::class);
+    }
 }

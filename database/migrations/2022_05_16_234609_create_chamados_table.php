@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreign('id_categoria')->references('id')->on('categorias');
             $table->unsignedBigInteger('id_chamado_pai')->nullable();
             $table->foreign('id_chamado_pai')->nullable()->references('id')->on('chamados');
+            $table->unsignedBigInteger('id_departamento')->nullable();
+            $table->foreign('id_departamento')->nullable()->references('id')->on('departamentos');
             $table->string('titulo', 128);
             $table->string('descricao', 4000);
             $table->string('impacto', 1);
