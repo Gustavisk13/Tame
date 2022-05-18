@@ -1,10 +1,12 @@
 import { createApp } from 'vue';
 
-import Home from './components/Home.vue';
+import HomeVue from './components/HomeVue.vue';
+import LoginVue from './components/LoginVue.vue';
 
 const app = createApp({});
 
-app.component('Home', Home);
+app.component('HomeVue', HomeVue);
+app.component('LoginVue', LoginVue);
 
 app.mount('#app');
 
