@@ -13,6 +13,10 @@ class Departamentos extends Model
     {
         return $this->hasMany(Usuarios::class);
     }
+    public function chamados()
+    {
+        return $this->hasMany(Chamados::class);
+    }
 
     public function gerente()
     {
