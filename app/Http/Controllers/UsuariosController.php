@@ -31,14 +31,15 @@ class UsuariosController extends Controller
         $newUser = new Usuarios([
             'nome' => $request->get('nome'),
             'telefone' => $request->get('telefone'),
-            'perfil' => 'U',
+            'perfil' => $request->get('perfil'),
             'senha' => $request->get('senha'),
-            'email' => $request->get('email')
+            'email' => $request->get('email'),
+            'id_departamento' => $request->get('id_departamento')
           ]);
 
           $newUser->save();
 
-          return response()->json($newUser);
+          return response()->json($newUser, 201);
 
     }
 
@@ -60,12 +61,25 @@ class UsuariosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuarios $usuarios)
+    public function update(Request $request, $id)
     {
-        //
+
+        $user = Usuarios::findOrFail($id);
+
+        $user->nome = $request->get('nome');
+        $user->telefone = $request->get('telefone');
+        $user->perfil = $request->get('perfil');
+        $user->senha = $request->get('senha');
+        $user->email = $request->get('email');
+        $user->id_departamento = $request->get('id_departamento');
+
+
+        $user->save();
+
+        return response()->json($user,200);
     }
 
     /**

@@ -31,3 +31,7 @@ Route::apiResource('categorias', CategoriasController::class);
 Route::apiResource('chamados', ChamadosController::class);
 Route::apiResource('departamentos', DepartamentosController::class);
 Route::apiResource('Tarefas', TarefasController::class);
+
+route::get('token', function () {
+    return csrf_token();
+});
