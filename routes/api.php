@@ -26,8 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('api/usuarios', UsuariosController::class);
-Route::apiResource('api/categorias', CategoriasController::class);
-Route::apiResource('api/chamados', ChamadosController::class);
-Route::apiResource('api/departamentos', DepartamentosController::class);
-Route::apiResource('api/Tarefas', TarefasController::class);
+Route::apiResource('usuarios', UsuariosController::class);
+Route::apiResource('categorias', CategoriasController::class);
+Route::apiResource('chamados', ChamadosController::class);
+Route::apiResource('departamentos', DepartamentosController::class);
+Route::apiResource('Tarefas', TarefasController::class);

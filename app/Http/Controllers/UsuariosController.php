@@ -28,17 +28,32 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
 
+        $newUser = new Usuarios([
+            'nome' => $request->get('nome'),
+            'telefone' => $request->get('telefone'),
+            'perfil' => 'U',
+            'senha' => $request->get('senha'),
+            'email' => $request->get('email')
+          ]);
+
+          $newUser->save();
+
+          return response()->json($newUser);
+
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Usuarios  $usuarios
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Usuarios $usuarios)
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function show($id)
     {
-        //
+
+        $user = Usuarios::findOrFail($id);
+
+        return response()->json($user);
     }
 
     /**
