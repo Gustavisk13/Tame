@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
 
@@ -26,30 +27,59 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $newUser = new Usuarios([
+            'nome' => $request->get('nome'),
+            'telefone' => $request->get('telefone'),
+            'perfil' => $request->get('perfil'),
+            'senha' => $request->get('senha'),
+            'email' => $request->get('email'),
+            'id_departamento' => $request->get('id_departamento')
+          ]);
+
+          $newUser->save();
+
+          return response()->json($newUser, 201);
+
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Usuarios  $usuarios
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Usuarios $usuarios)
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function show($id)
     {
-        //
+
+        $user = Usuarios::findOrFail($id);
+
+        return response()->json($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuarios $usuarios)
+    public function update(Request $request, $id)
     {
-        //
+
+        $user = Usuarios::findOrFail($id);
+
+        $user->nome = $request->get('nome');
+        $user->telefone = $request->get('telefone');
+        $user->perfil = $request->get('perfil');
+        $user->senha = $request->get('senha');
+        $user->email = $request->get('email');
+        $user->id_departamento = $request->get('id_departamento');
+
+
+        $user->save();
+
+        return response()->json($user,200);
     }
 
     /**

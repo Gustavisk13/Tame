@@ -9,6 +9,15 @@ class Usuarios extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nome',
+        'email',
+        'senha',
+        'perfil',
+        'telefone',
+        'id_departamento'
+    ];
+
     //PARA RELACIONAR DEVE-SE PRIMEIRO CRIAR UM METODO DE RELACIONAMENTO
 
     //METODO DEVE SER NOMEADO PELA MANEIRA QUE VC VAI ACESSAR O RELAIONAMENTO, QUANDO USUARIO PRECISA ACESSAR

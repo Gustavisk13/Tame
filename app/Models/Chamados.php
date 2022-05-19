@@ -9,6 +9,18 @@ class Chamados extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id_usuario',
+        'id_atendente',
+        'id_categoria',
+        'id_chamado_pai',
+        'id_departamento',
+        'titulo',
+        'descricao',
+        'impacto',
+        'status'
+    ];
+
     //FK_ID_USUARIO
     public function usuario()
     {
