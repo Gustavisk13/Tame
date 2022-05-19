@@ -9,6 +9,11 @@ class Departamentos extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nome',
+        'id_gerente'
+    ];
+
     public function departamento()
     {
         return $this->hasMany(Usuarios::class);

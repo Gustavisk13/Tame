@@ -14,7 +14,8 @@ class DepartamentosController extends Controller
      */
     public function index()
     {
-        //
+        $departamentos = Departamentos::all();
+        return response()->json($departamentos);
     }
 
     /**
@@ -25,30 +26,46 @@ class DepartamentosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newDept = new Departamentos([
+            'id_gerente' => $request->get('id_gerente'),
+            'nome' => $request->get('nome')
+        ]);
+
+        $newDept->save();
+
+        return response()->json($newDept, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Departamentos  $departamentos
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Departamentos $departamentos)
+    public function show($id)
     {
-        //
+        $dept = Departamentos::findOrFail($id);
+
+        return response()->json($departamentos);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Departamentos  $departamentos
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Departamentos $departamentos)
+    public function update(Request $request, $id)
     {
-        //
+        $dept = Departamentos::findOrFail($id);
+
+        $dept->id_gerente = $request->get('id_gerente');
+        $dept->nome = $request->get('nome');
+
+        $dept->save();
+
+        return response()->json($dept,200);
     }
 
     /**
