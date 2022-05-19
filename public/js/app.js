@@ -19481,6 +19481,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       columns: [{
+        id: 'waiting',
         title: 'Em espera',
         color: '#040491',
         tasks: [{
@@ -19492,6 +19493,7 @@ __webpack_require__.r(__webpack_exports__);
           stopwatch: 0
         }]
       }, {
+        id: 'progress',
         title: 'Em progresso',
         color: '#f77f00',
         tasks: [{
@@ -19503,6 +19505,7 @@ __webpack_require__.r(__webpack_exports__);
           stopwatch: 0
         }]
       }, {
+        id: 'review',
         title: 'Homologação',
         color: '#ff477e',
         tasks: [{
@@ -19514,6 +19517,7 @@ __webpack_require__.r(__webpack_exports__);
           stopwatch: 0
         }]
       }, {
+        id: 'done',
         title: 'Finalizado',
         color: '#00cf80',
         tasks: [{
@@ -19546,8 +19550,14 @@ __webpack_require__.r(__webpack_exports__);
       return "".concat(hours, ":").concat(minutes, ":").concat(seconds);
     },
     handleChangeTaskColumn: function handleChangeTaskColumn(event) {
-      console.log(event);
-      console.log(event.to.id);
+      var columnId = event.to.id;
+      var task = event.item._underlying_vm_;
+
+      if (columnId === 'progress') {
+        this.startTimer(task);
+      } else {
+        this.stopTimer(task);
+      }
     },
     startTimer: function startTimer(task) {
       task.timer = setInterval(function () {
@@ -19655,7 +19665,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         tag: 'ul',
         name: 'flip-list',
         type: 'transition',
-        id: column.title
+        id: column.id
       },
       modelValue: column.tasks,
       "onUpdate:modelValue": function onUpdateModelValue($event) {

@@ -21,7 +21,7 @@
 
                 <draggable
                     item-key="id"
-                    :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition', id: column.title }"
+                    :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition', id: column.id }"
                     v-model="column.tasks"
                     v-bind="dragOptions"
                     @start="isDragging = true"
@@ -122,6 +122,7 @@ export default {
         return {
             columns: [
                 {
+                    id: 'waiting',
                     title: 'Em espera',
                     color: '#040491',
                     tasks: [
@@ -136,6 +137,7 @@ export default {
                     ],
                 },
                 {
+                    id: 'progress',
                     title: 'Em progresso',
                     color: '#f77f00',
                     tasks: [
@@ -150,6 +152,7 @@ export default {
                     ],
                 },
                 {
+                    id: 'review',
                     title: 'Homologação',
                     color: '#ff477e',
                     tasks: [
@@ -164,6 +167,7 @@ export default {
                     ],
                 },
                 {
+                    id: 'done',
                     title: 'Finalizado',
                     color: '#00cf80',
                     tasks: [
@@ -200,8 +204,14 @@ export default {
             return `${hours}:${minutes}:${seconds}`;
         },
         handleChangeTaskColumn(event) {
-            console.log(event);
-            console.log(event.to.id);
+            const columnId = event.to.id;
+            const task = event.item._underlying_vm_;
+
+            if (columnId === 'progress') {
+                this.startTimer(task);
+            } else {
+                this.stopTimer(task);
+            }
         },
         startTimer(task) {
             task.timer = setInterval(() => {
