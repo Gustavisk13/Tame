@@ -3,8 +3,7 @@
     <header>
         <div class="header-content">
             <div id="logo">
-                <h1>Ta<span>me</span></h1>
-                <p>Task Management Environment</p>
+                <img src="\images\Logo.png" alt="">
             </div>
             <div id="call-button">
                 <button>Abrir chamado</button>
@@ -31,30 +30,9 @@ header {
 
 
         #logo {
-            font-family: 'LT Wave';
-            font-style: normal;
-            font-weight: 700;
             height: 60px;
             margin-top: 17px;
 
-            h1 {
-                color: $white-color;
-                font-size: 48px;
-                line-height: 55px;
-            }
-
-            h1 span {
-                color: $green-color;
-                font-size: 48px;
-                line-height: 55px;
-            }
-
-            p {
-                margin-top: -5px;
-                color: $white-color;
-                font-size: 8px;
-                line-height: 9px;
-            }
         }
 
         #call-button {
@@ -73,6 +51,11 @@ header {
                 border-radius: 8px;
                 text-align: center;
                 margin-top: 28px;
+
+                // button img{
+                //     margin: 0;
+                //     text-align: center;
+                // }
             }
 
             button:hover {
