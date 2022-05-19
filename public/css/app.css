@@ -363,6 +363,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .justify-center{
   justify-content: center;
 }
+.border{
+  border-width: 1px;
+}
 html, body, #app {
   width: 100%;
   min-height: 100vh;
