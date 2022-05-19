@@ -14,7 +14,8 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categorias::all();
+        return response()->json($categorias);
     }
 
     /**
@@ -25,30 +26,45 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $categoria = new Categorias([
+            'nome' => $request->get('nome'),
+            'id_categoria_pai' => $request->get('id_categoria_pai')
+          ]);
+
+          $categoria->save();
+
+          return response()->json($categoria, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Categorias  $categorias
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Categorias $categorias)
+    public function show($id)
     {
-        //
+        $categoria = Categorias::findOrFail($id);
+        return response()->json($categoria);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Categorias  $categorias
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categorias $categorias)
+    public function update(Request $request, $id)
     {
-        //
+        $categoria = Categorias::findOrFail($id);
+
+        $categoria->nome = $request->get('nome');
+        $categoria->id_categoria_pai = $request->get('id_categoria_pai');
+        $categoria->save();
+
+        return response()->json($categoria);
     }
 
     /**
