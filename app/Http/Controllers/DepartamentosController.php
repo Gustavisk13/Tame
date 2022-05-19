@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Usuarios;
+use App\Models\Departamentos;
 use Illuminate\Http\Request;
 
-class UsuariosController extends Controller
+class DepartamentosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuarios::all();
-        return response()->json($usuarios);
+        //
     }
 
     /**
@@ -27,16 +25,16 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  \App\Models\Departamentos  $departamentos
      * @return \Illuminate\Http\Response
      */
-    public function show(Usuarios $usuarios)
+    public function show(Departamentos $departamentos)
     {
         //
     }
@@ -45,10 +43,10 @@ class UsuariosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  \App\Models\Departamentos  $departamentos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuarios $usuarios)
+    public function update(Request $request, Departamentos $departamentos)
     {
         //
     }
@@ -56,10 +54,10 @@ class UsuariosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  \App\Models\Departamentos  $departamentos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuarios $usuarios)
+    public function destroy(Departamentos $departamentos)
     {
         //
     }
