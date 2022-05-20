@@ -44,7 +44,7 @@ class DepartamentosController extends Controller
      */
     public function show($id)
     {
-        $dept = Departamentos::findOrFail($id);
+        $departamentos = Departamentos::findOrFail($id);
 
         return response()->json($departamentos);
     }
