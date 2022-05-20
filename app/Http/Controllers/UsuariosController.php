@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class UsuariosController extends Controller
 {
@@ -21,7 +22,8 @@ class UsuariosController extends Controller
      $user = Usuarios::where('email', $email)->firstOrFail();
      $senha = $user->senha;
      if($senha === $request->get('senha'))
-        return view('home');
+        //return view('home');
+            return "{\"redirect\": \"home\"}";
      else {
          return"false";
      }

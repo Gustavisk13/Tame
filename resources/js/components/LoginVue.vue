@@ -9,18 +9,18 @@
         </div>
         <div class="item-login">
             <label class="text-login">Login</label><br>
-            <input type="text" class="input-login">
+            <input v-model="user" type="text" class="input-login" id="user">
         </div>
         <div>
             <label class="text-login">Senha</label><br>
-            <input type="password" class="input-login">
+            <input v-model="pass" type="password" class="input-login" id="pass">
         </div>
         <div class="checkbox">
             <input type="checkbox" class="check">
             <label class="text-lembre">Lembre-se de mim</label>
         </div>
         <div class="button">
-            <button class="btn-entrar">
+            <button @click="login()" class="btn-entrar">
                 Entrar
             </button>
         </div>
@@ -105,7 +105,30 @@ body {
             margin-top: 40px;
         }
         .img-logo{
-            
+
         }
-    
+
 </style>
+<script>
+    import axios from "axios";
+    export default {
+        data(){
+            return {
+                user:null,
+                pass:null
+            }
+        },
+        methods:{
+            login(){
+                axios.get("/api/auth", {
+                 params:{
+                     email: this.user,
+                     senha: this.pass
+                 }
+             }).then(data => {
+                 window.location.href = "home";
+             });
+            }
+        }
+    }
+</script>
