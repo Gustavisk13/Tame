@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 // Variables
 @import 'variables';
@@ -15,6 +15,7 @@ html, body, #app {
 }
 
 body {
+    background: $body-bg;
     color: $text-color;
 }
 
