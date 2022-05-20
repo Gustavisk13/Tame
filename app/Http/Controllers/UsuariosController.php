@@ -13,6 +13,25 @@ class UsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function checkLogin(Request $request)
+    {
+
+     $email = $request->get('email');
+     $user = Usuarios::where('email', $email)->firstOrFail();
+     $senha = $user->senha;
+     if($senha === $request->get('senha'))
+        return view('home');
+     else {
+         return"false";
+     }
+
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $usuarios = Usuarios::all();
