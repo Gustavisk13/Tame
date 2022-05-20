@@ -13,4 +13,5 @@ app.component('HeaderVue', HeaderVue);
 
 app.mount('#app');
 
+
 require('./bootstrap');

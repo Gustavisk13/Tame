@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "vue-final-modal": "^3.4.4",
         "vuedraggable": "^4.1.0"
     }
 }
