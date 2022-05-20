@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('telefone', 16);
             $table->string('perfil', 2);
             $table->string('senha', 256);
-            $table->string('email', 128);
+            $table->string('email', 128)->unique();
             $table->timestamps();
         });
     }
