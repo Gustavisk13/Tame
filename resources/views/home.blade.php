@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<home-vue></home-vue>
+<main>
+    <header-vue></header-vue>
+    <home-vue></home-vue>
+</main>
 @endsection
