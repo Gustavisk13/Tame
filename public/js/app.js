@@ -19662,8 +19662,60 @@ var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
 
 var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "modal__content"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Vue Final Modal is a renderless, stackable, detachable and lightweight modal component.")], -1
+    "class": "modal__category-department"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "category-button"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "images\\icon_category.png",
+    alt: ""
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Categoria "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "icon-arrow-down",
+    src: "\\images\\icons_arrow-down.png",
+    alt: ""
+  })]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "department-button"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "images\\icon_departament.png",
+    alt: ""
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Departamento "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "icon-arrow-down",
+    src: "\\images\\icons_arrow-down.png",
+    alt: ""
+  })])], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "modal__input"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "title-input",
+    type: "text",
+    placeholder: "Título"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "description-input",
+    type: "text ",
+    placeholder: "Descrição"
+  })], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "modal__add-cancel"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "add-button"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "images\\add-button.png",
+    alt: ""
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Adicionar")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "cancel-button"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "images\\cancel-button.png",
+    alt: ""
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Cancelar")])], -1
   /* HOISTED */
   );
 });
@@ -19684,7 +19736,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "content-class": "modal-content"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_5, _hoisted_6];
+      return [_hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8];
     }),
     _: 1
     /* STABLE */
@@ -19989,7 +20041,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-475f6d5e] .modal-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n[data-v-475f6d5e] .modal-content {\n  display: flex;\n  flex-direction: column;\n  margin: 0 1rem;\n  padding: 1rem;\n  border: 2px solid #040491;\n  border-radius: 15px;\n  background: #fff;\n}\n.modal__title[data-v-475f6d5e] {\n  text-align: center;\n  margin-top: 25px;\n  margin-bottom: 35px;\n}\n.modal__title span[data-v-475f6d5e] {\n  font-family: \"Montserrat\";\n  font-style: normal;\n  font-weight: 700;\n  font-size: 30px;\n  line-height: 37px;\n  color: #040491;\n  border: 2px solid #040491;\n  background: rgba(4, 4, 145, 0.1);\n  padding: 11.5px 18px 11.5px 18px;\n  border-radius: 8px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-475f6d5e] .modal-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n[data-v-475f6d5e] .modal-content {\n  display: flex;\n  flex-direction: column;\n  margin: 0 1rem;\n  padding: 1rem;\n  border: 2px solid #040491;\n  border-radius: 15px;\n  background: #fff;\n  width: 820px;\n}\n.modal__title[data-v-475f6d5e] {\n  text-align: center;\n  margin-top: 25px;\n  margin-bottom: 35px;\n}\n.modal__title span[data-v-475f6d5e] {\n  font-family: \"Montserrat\";\n  font-style: normal;\n  font-weight: 700;\n  font-size: 30px;\n  line-height: 37px;\n  color: #040491;\n  border: 2px solid #040491;\n  background: rgba(4, 4, 145, 0.1);\n  padding: 11.5px 18px 11.5px 18px;\n  border-radius: 8px;\n}\n.modal__category-department[data-v-475f6d5e] {\n  display: flex;\n  text-align: left;\n  margin-left: 50px;\n}\n.modal__category-department .category-button[data-v-475f6d5e] {\n  width: 140px;\n  height: 40px;\n  display: flex;\n  background: #00cf80;\n  border-radius: 8px;\n  font-family: \"Montserrat\";\n  font-style: normal;\n  font-weight: 700;\n  font-size: 15px;\n  line-height: 18px;\n  color: #FFFFFF;\n  padding-top: 12px;\n}\n.modal__category-department .department-button[data-v-475f6d5e] {\n  width: 168px;\n  height: 40px;\n  display: flex;\n  background: #00cf80;\n  border-radius: 8px;\n  font-family: \"Montserrat\";\n  font-style: normal;\n  font-weight: 700;\n  font-size: 15px;\n  line-height: 18px;\n  color: #FFFFFF;\n  padding-top: 12px;\n  margin-left: 19px;\n}\n.modal__category-department img[data-v-475f6d5e] {\n  margin: 0 auto;\n}\n.modal__category-department .icon-arrow-down[data-v-475f6d5e] {\n  padding-top: 2px;\n}\n.modal__input[data-v-475f6d5e] {\n  display: flex;\n  flex-direction: column;\n  width: 692px;\n  margin-left: 50px;\n}\n.modal__input .title-input[data-v-475f6d5e] {\n  height: 40px;\n  margin-top: 52px;\n  margin-bottom: 40px;\n  border: 2px solid #00cf80;\n  border-radius: 8px;\n  background-color: rgba(0, 207, 128, 0.13);\n  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n  -webkit-backdrop-filter: blur(4px);\n          backdrop-filter: blur(4px);\n  padding-left: 5px;\n}\n.modal__input .description-input[data-v-475f6d5e] {\n  height: 235px;\n  margin-bottom: 37px;\n  border: 2px solid #00cf80;\n  border-radius: 8px;\n  background-color: rgba(0, 207, 128, 0.13);\n  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n  -webkit-backdrop-filter: blur(4px);\n          backdrop-filter: blur(4px);\n  padding-left: 5px;\n}\n.modal__add-cancel[data-v-475f6d5e] {\n  display: flex;\n  margin-left: 50px;\n}\n.modal__add-cancel .add-button[data-v-475f6d5e] {\n  width: 119px;\n  height: 35px;\n  display: flex;\n  background: #00cf80;\n  border-radius: 8px;\n  font-family: \"Montserrat\";\n  font-style: normal;\n  font-weight: 700;\n  font-size: 15px;\n  line-height: 18px;\n  color: #FFFFFF;\n  padding-top: 9px;\n  margin-right: 433px;\n}\n.modal__add-cancel .cancel-button[data-v-475f6d5e] {\n  width: 119px;\n  height: 35px;\n  display: flex;\n  background: #ffffff;\n  border: 1px solid #00CF80;\n  border-radius: 8px;\n  font-family: \"Montserrat\";\n  font-style: normal;\n  font-weight: 700;\n  font-size: 15px;\n  line-height: 18px;\n  color: #00cf80;\n  padding-top: 12px;\n  margin-left: 19px;\n}\n.modal__add-cancel img[data-v-475f6d5e] {\n  margin: 0 auto;\n  margin-right: 8px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
