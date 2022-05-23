@@ -13,18 +13,60 @@
                 <label class="block">Cargo</label>
                 <input v-model="position" type="text" name="cargo" required />
             </div>
-            <div id="perfil">
+            <!-- <div id="perfil">
                 <label class="block">Perfil</label>
                 <input v-model="profile" type="text" name="perfil" required />
+            </div> -->
+            
+            <div id="perfil">
+                <label class="block">Perfil</label>
+                    <div class="mb-3 xl:w-86">
+                        <select class ="form-select appearance-none 
+                            block
+                            w-full
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding bg-no-repeat
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                            <option selected>Selecione um perfil</option>
+                            <option id="op1">Usuário</option>
+                            <option id="op2">Administrador</option>
+                        </select>
+                    </div>
             </div>
             <div id="dep">
-                <select v-model="department">
+                <label class="block">Departamento</label>
+                    <div class="mb-3 xl:w-86">
+                        <select v-model="department" class="form-select appearance-none
+                            block
+                            w-full
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding bg-no-repeat
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" >
+                            <option value="" disabled selected>Selecione um departamento</option>
+                            <option v-for="dept in departments" :value="dept.id">
+                                {{ dept.nome }}
+                            </option>
 
-                    <option v-for="dept in departments" :value="dept.id">
-                        {{ dept.nome }}
-                    </option>
-
-                </select>
+                        </select>
+                    </div>
             </div>
 
             <div id="email">
@@ -97,6 +139,7 @@ export default {
     },
 };
 </script>
+
 
 <style scoped>
 .formulario {
