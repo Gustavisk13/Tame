@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap);
+@charset "UTF-8";
 /*
 ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
@@ -372,6 +373,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .left-0{
   left: 0px;
 }
+.col-span-2{
+  grid-column: span 2 / span 2;
+}
 .my-4{
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -397,11 +401,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mr-2{
   margin-right: 0.5rem;
 }
+.mt-12{
+  margin-top: 3rem;
+}
+.block{
+  display: block;
+}
 .inline-block{
   display: inline-block;
 }
 .flex{
   display: flex;
+}
+.grid{
+  display: grid;
 }
 .h-6{
   height: 1.5rem;
@@ -442,6 +455,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .list-none{
   list-style-type: none;
 }
+.grid-cols-4{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid-rows-2{
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
 .items-center{
   align-items: center;
 }
@@ -453,6 +472,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .gap-5{
   gap: 1.25rem;
+}
+.gap-4{
+  gap: 1rem;
 }
 .overflow-x-auto{
   overflow-x: auto;
@@ -521,6 +543,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pr-3{
   padding-right: 0.75rem;
 }
+.text-center{
+  text-align: center;
+}
 .text-right{
   text-align: right;
 }
@@ -569,6 +594,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.blur{
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.backdrop-filter{
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
 .transition{
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -594,3 +627,36 @@ h5,
 h6 {
   color: #2a2a2a;
 }
+
+/* Estilização das tabs */
+ul.tabs-component-tabs {
+  margin: 48px 0;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  gap: 24px;
+}
+
+div.tabs-component-panels {
+  min-height: 220px;
+}
+
+a.tabs-component-tab-a {
+  color: #e0e0e0;
+  transition: all 0.2s;
+}
+a.tabs-component-tab-a.is-active {
+  color: #00cf80;
+  font-weight: 700;
+  position: relative;
+}
+a.tabs-component-tab-a.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #00cf80;
+}
+
+/* Fim estilização das tabs */
