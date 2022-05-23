@@ -125,7 +125,7 @@ body {
                      senha: this.pass
                  }).then(data => {
                             console.log(data.data);
-                        if(data.data === false){
+                        if(data.data === false ){
                             alert("Usuário ou senha incorretos");
                         }else{
                         window.location.href = "/home";
