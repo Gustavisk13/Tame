@@ -30,7 +30,7 @@
 
             <div class="modal__input">
                 <input class="title-input" type="text" placeholder="Título">
-                <input class="description-input" type="text " placeholder="Descrição">
+                <textarea class="description-input"  placeholder="Descrição"></textarea>
             </div>
 
             <div class="modal__add-cancel">
@@ -167,13 +167,14 @@ export default {
 
 .modal__input .description-input {
     height: 235px;
-    margin-bottom: 37px;
+    margin-bottom: 42px;
     border: 2px solid $green-color;
     border-radius: 8px;
     background-color: rgba(0, 207, 128, 0.13);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
     padding-left: 5px;
+    padding-bottom: 192px;
 
 }
 
@@ -185,7 +186,7 @@ export default {
 
 .modal__add-cancel .add-button {
     width: 119px;
-    height: 35px;
+    height: 32px;
     display: flex;
     background: $green-color;
     border-radius: 8px;
@@ -195,7 +196,8 @@ export default {
     font-size: 15px;
     line-height: 18px;
     color: #FFFFFF;
-    padding-top: 9px;
+    padding-top: 8px;
+    padding-right: 11px;
     margin-right: 433px;
 }
 
@@ -212,13 +214,14 @@ export default {
     font-size: 15px;
     line-height: 18px;
     color: $green-color;
-    padding-top: 12px;
-    margin-left: 19px;
+    padding-top: 8px;
+    padding-right: 12px;
+    margin-left: 22px;
 }
 
 .modal__add-cancel img {
     margin: 0 auto;
-    margin-right: 8px;
+    margin-right: 9px;
 }
 </style>
 
