@@ -43,7 +43,7 @@
                     </div>
             </div>
             <div id="dep">
-                <label class="block">Departamento</label>
+                <label class="block">Departamento </label>
                     <div class="mb-3 xl:w-86">
                         <select v-model="department" class="form-select appearance-none
                             block
