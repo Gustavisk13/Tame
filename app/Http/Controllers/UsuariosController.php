@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class UsuariosController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
 
@@ -18,10 +19,11 @@ class UsuariosController extends Controller
     {
 
      $email = $request->get('email');
-     $user = Usuarios::where('email', $email)->firstOrFail();
+     $user = Usuarios::where('email', $email)->first();
      $senha = $user->senha;
      if($senha === $request->get('senha'))
-        return view('home');
+        //return view('home');
+            return "home";
      else {
          return"false";
      }
