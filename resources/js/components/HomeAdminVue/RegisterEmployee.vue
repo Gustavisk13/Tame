@@ -104,6 +104,7 @@ export default {
     mounted() {
         axios.get('/api/departamentos')
              .then(data =>{
+
                 this.departments = data.data;
              });
 
