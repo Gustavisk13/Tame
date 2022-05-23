@@ -19606,7 +19606,9 @@ __webpack_require__.r(__webpack_exports__);
         email: this.user,
         senha: this.pass
       }).then(function (data) {
-        if (data.data === "false") {
+        console.log(data.data);
+
+        if (data.data === false) {
           alert("Usuário ou senha incorretos");
         } else {
           window.location.href = "/home";
