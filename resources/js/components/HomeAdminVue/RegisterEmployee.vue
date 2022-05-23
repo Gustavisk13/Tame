@@ -18,9 +18,15 @@
                 <input v-model="profile" type="text" name="perfil" required />
             </div>
             <div id="dep">
-                <label class="block">Departamento</label>
-                <input v-model="department" type="text" name="dep" required />
+                <select v-model="department">
+
+                    <option v-for="dept in departments" :value="dept.id">
+                        {{ dept.nome }}
+                    </option>
+
+                </select>
             </div>
+
             <div id="email">
                 <label class="block">E-mail</label>
                 <input v-model="email" type="email" name="email" required />
@@ -38,6 +44,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -48,10 +56,28 @@ export default {
             department: null,
             email: null,
             password: null,
+            departments:[]
         };
+    },
+    mounted() {
+        axios.get('/api/departamentos')
+             .then(data =>{
+                this.departments = data.data;
+             });
+
     },
     methods: {
         handleSubmit() {
+            console.log(this.department);
+            axios.post('/api/usuarios', {
+                    name: this.name,
+                    phone: this.phone,
+                    position: this.position,
+                    profile: this.profile,
+                    department: this.department,
+                    email: this.email,
+                    password: this.password
+            })/* ,
             alert(
                 JSON.stringify(
                     {
@@ -66,7 +92,7 @@ export default {
                     null,
                     2
                 )
-            );
+            ); */
         },
     },
 };
@@ -105,5 +131,6 @@ input {
     font-size: 16px;
     line-height: 20px;
     color: #ffffff;
+    cursor: pointer;
 }
 </style>
