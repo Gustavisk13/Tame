@@ -4,5 +4,6 @@
 <main>
     <header-vue></header-vue>
     <home-vue></home-vue>
+
 </main>
 @endsection
