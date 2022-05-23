@@ -32,7 +32,7 @@ Route::apiResource('chamados', ChamadosController::class);
 Route::apiResource('departamentos', DepartamentosController::class);
 Route::apiResource('Tarefas', TarefasController::class);
 
-Route::get('/auth', [UsuariosController::class, 'checkLogin']);
+Route::post('auth', [UsuariosController::class, 'checkLogin']);
 
 route::get('token', function () {
     return csrf_token();

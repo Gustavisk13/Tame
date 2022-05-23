@@ -120,14 +120,18 @@ body {
         },
         methods:{
             login(){
-                axios.get("/api/auth", {
-                 params:{
+                axios.post("/api/auth", {
                      email: this.user,
                      senha: this.pass
-                 }
-             }).then(data => {
-                 window.location.href = "home";
-             });
+                 }).then(data => {
+                        if(data.data === "false"){
+                            alert("Usuário ou senha incorretos");
+                        }else{
+                        window.location.href = "/home";
+                        }
+                 }).catch(error => {
+                     console.log(error);
+                 });
             }
         }
     }
