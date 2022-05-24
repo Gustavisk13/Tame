@@ -36,7 +36,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuarios::all();
+        $usuarios = Usuarios::query()->orderBy('id', 'desc')->get();
         return response()->json($usuarios);
     }
 
@@ -50,12 +50,12 @@ class UsuariosController extends Controller
     {
 
         $newUser = new Usuarios([
-            'nome' => $request->get('nome'),
-            'telefone' => $request->get('telefone'),
-            'perfil' => $request->get('perfil'),
-            'senha' => $request->get('senha'),
+            'nome' => $request->get('name'),
+            'telefone' => $request->get('phone'),
+            'perfil' => $request->get('profile'),
+            'senha' => $request->get('password'),
             'email' => $request->get('email'),
-            'id_departamento' => $request->get('id_departamento')
+            'id_departamento' => $request->get('department')
           ]);
 
           $newUser->save();
