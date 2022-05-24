@@ -36,7 +36,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuarios::all();
+        $usuarios = Usuarios::query()->orderBy('id', 'desc')->get();
         return response()->json($usuarios);
     }
 
