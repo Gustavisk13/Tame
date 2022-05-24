@@ -26,12 +26,9 @@
     },
     "dependencies": {
         "vue-final-modal": "^3.4.4",
-<<<<<<< HEAD
         "vue-simple-search-dropdown": "^1.0.1",
         "maska": "^1.5.0",
         "vue-final-modal": "^3.4.4",
-=======
->>>>>>> 7823bd3665b64ad8fed0901526395cce6d6a393a
         "vue3-tabs-component": "^1.0.8",
         "vuedraggable": "^4.1.0"
     }

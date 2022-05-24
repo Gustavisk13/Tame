@@ -9,7 +9,7 @@
                 <button @click="showModal = true">Abrir chamado</button>
             </div>
             <div id="exit-button">
-                <button src="">Sair</button>
+                <button type="button" @click="handleLogout">Sair</button>
             </div>
         </div>
     </header>
@@ -51,7 +51,12 @@ export default {
     },
     data: () => ({
         showModal: false
-    })
+    }),
+    methods: {
+        handleLogout() {
+            window.location.href = '/login';
+        }
+    }
 }
 </script>
 
