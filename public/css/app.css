@@ -1,5 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap);
-@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
 /*
 ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
@@ -358,6 +357,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+<<<<<<< HEAD
 .absolute{
   position: absolute;
 }
@@ -719,13 +719,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .ease-in-out{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+=======
+.flex{
+  display: flex;
+}
+.justify-center{
+  justify-content: center;
+}
+>>>>>>> 7823bd3665b64ad8fed0901526395cce6d6a393a
 html, body, #app {
   width: 100%;
   min-height: 100vh;
 }
 
 body {
-  background: #f8fafc;
   color: #515151;
 }
 
@@ -737,6 +744,7 @@ h5,
 h6 {
   color: #2a2a2a;
 }
+<<<<<<< HEAD
 
 /* Estilização das tabs */
 ul.tabs-component-tabs {
@@ -845,3 +853,5 @@ a.tabs-component-tab-a.is-active::after {
     width: 24rem;
   }
 }
+=======
+>>>>>>> 7823bd3665b64ad8fed0901526395cce6d6a393a

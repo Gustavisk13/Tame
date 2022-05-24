@@ -6,7 +6,7 @@
             <h2>Departamento: <span class="font-bold">Financeiro</span></h2>
         </div>
 
-        <ul class="mt-11 mb-6 w-full list-none overflow-x-auto flex gap-5 justify-between">
+        <ul class="columns-list mt-11 mb-6 w-full list-none overflow-x-auto flex gap-5 justify-between">
             <li
                 :key="column.title"
                 v-for="column in columns"
@@ -21,11 +21,18 @@
 
                 <draggable
                     item-key="id"
-                    :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition', id: column.id }"
+                    tag="transition-group"
+                    :component-data="{
+                        tag: 'ul',
+                        name: 'flip-list',
+                        type: 'transition-group',
+                        id: column.id,
+                        name: !drag ? 'flip-list' : null,
+                    }"
                     v-model="column.tasks"
                     v-bind="dragOptions"
-                    @start="isDragging = true"
-                    @end="isDragging = false"
+                    @start="drag = true"
+                    @end="drag = false"
                     @add="handleChangeTaskColumn"
                 >
                     <template #item="{ element }">
@@ -111,15 +118,16 @@ export default {
     computed: {
         dragOptions() {
             return {
-                animation: 0,
-                group: 'description',
+                animation: 200,
+                group: "description",
                 disabled: false,
-                ghostClass: 'ghost'
+                ghostClass: "ghost"
             };
         }
     },
     data() {
         return {
+            drag: false,
             columns: [
                 {
                     id: 'waiting',
@@ -143,7 +151,7 @@ export default {
                     tasks: [
                         {
                             id: '7380222',
-                            title: 'Criação de relatório',
+                            title: 'Bug no VTrine',
                             userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
                             createdAt: new Date(),
                             timer: null,
@@ -158,7 +166,7 @@ export default {
                     tasks: [
                         {
                             id: '1132168',
-                            title: 'Criação de relatório',
+                            title: 'GPP não está funcionando',
                             userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
                             createdAt: new Date(),
                             timer: null,
@@ -173,7 +181,7 @@ export default {
                     tasks: [
                         {
                             id: '1230987',
-                            title: 'Criação de relatório',
+                            title: 'Erro de NF no VTrine',
                             userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
                             createdAt: new Date(),
                             timer: null,
@@ -251,8 +259,56 @@ export default {
         }
     }
 
+    .columns-list {
+        &::-webkit-scrollbar {
+            height: 12px;
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-clip: content-box;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #bfc4ce;
+            border-radius: 10px;
+        }
+    }
+
+    .flip-list-move {
+        transition: transform 0.5s;
+    }
+    .no-move {
+        transition: transform 0s;
+    }
+    .ghost {
+        opacity: 0.5;
+        background: #f7fafc;
+        border: 1px solid #4299e1;
+    }
+
     .tasks-column {
         height: 650px;
         background: #f0f2f3;
+
+        ul {
+            height: 100%;
+        }
+
+        &::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-clip: content-box;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #bfc4ce;
+            border-radius: 10px;
+        }
     }
 </style>
