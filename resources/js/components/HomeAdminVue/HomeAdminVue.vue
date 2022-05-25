@@ -55,6 +55,11 @@ export default {
             var cookie = cArr[i].split("=",2);
             cookie[0] = cookie[0].replace(/^\s+/,"");
             if (cookie[0] == 'usuario'){ this.usuario = cookie[1];}
+            if (cookie[0] == 'depto'){ this.depto = cookie[1];}
+            }
+
+            if(this.depto =="null"){
+                this.depto = "N/A";
             }
     },
 }

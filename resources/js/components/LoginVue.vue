@@ -128,7 +128,8 @@ body {
                         if(data.data === false ){
                             alert("Usuário ou senha incorretos");
                         }else{
-                            document.cookie = "usuario="+this.user;
+                            document.cookie = "usuario="+data.data.nome;
+                            document.cookie = "depto="+data.data.departamento;
                             window.location.href = "/home";
                         }
                  }).catch(error => {

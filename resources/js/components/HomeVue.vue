@@ -3,7 +3,7 @@
         <div class="flex align-center justify-between">
             <h1 class="font-bold">Seja bem vindo, <span>{{usuario}}</span></h1>
 
-            <h2>Departamento: <span class="font-bold">Financeiro</span></h2>
+            <h2>Departamento: <span class="font-bold">{{depto}}</span></h2>
         </div>
 
         <ul class="columns-list mt-11 mb-6 w-full list-none overflow-x-auto flex gap-5 justify-between">
@@ -129,6 +129,7 @@ export default {
         return {
             drag: false,
             usuario: null,
+            depto: null,
             columns: [
                 {
                     id: 'waiting',
@@ -237,6 +238,11 @@ export default {
             var cookie = cArr[i].split("=",2);
             cookie[0] = cookie[0].replace(/^\s+/,"");
             if (cookie[0] == 'usuario'){ this.usuario = cookie[1];}
+            if (cookie[0] == 'depto'){ this.depto = cookie[1];}
+            }
+
+            if(this.depto =="null"){
+                this.depto = "N/A";
             }
     },
     beforeUnmount() {

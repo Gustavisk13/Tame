@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Usuarios;
+use App\Models\Departamentos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Stmt\TryCatch;
@@ -28,10 +29,27 @@ class UsuariosController extends Controller
         $senha = $user->senha;
         if($senha === $request->get('senha'))
             //return view('home');
-            return "home";
-        else {
+            $depto = null;
+            try {
+                $depto = Departamentos::where('id', $user->id_departamento)->first();
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            if($depto == null){
+                return "{
+                    \"redirect\": \"home\",
+                    \"nome\": \"$user->nome\",
+                    \"departamento\": \"null\"
+                    }";
+            }else{
+                return "{
+                    \"redirect\": \"home\",
+                    \"nome\": \"$user->nome\",
+                    \"departamento\": \"$depto->nome\"
+                    }";
+            }
             return "false";
-        }
+
 
     }
     /**
