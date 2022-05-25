@@ -3,24 +3,24 @@
         <div class="row">
             <div class="nomedep">
                 <span>Nome</span>
-                <input v-model="name" type="text" required>
+                <input id="idNome" v-model="name" type="text" required>
             </div>
             <div class="nomeger">
-                <span>Nome do Gerente</span>
-                <input v-model="managerName" type="text">
+                <span>ID do Gerente</span>
+                <input id="idGerente" v-model="managerName" type="text">
             </div>
         </div>
         <div class="botaocadastrar">
-            <button type="submit" class="cadastrar">
+            <button id="idBotao" type="submit" class="cadastrar">
                 Cadastrar departamento
             </button>
         </div>
     </form>
-
     <span>Lista de Departamentos</span>
+
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-left text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Departamentos
@@ -34,8 +34,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="depto in departList" :key="depto.nome" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+            <tr v-for="depto in departList" :key="depto.nome" class="bg-white border-b">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {{depto.nome}}
                 </th>
                 <td class="px-6 py-4">
@@ -43,6 +43,9 @@
                 </td>
                 <td class="px-6 py-4">
                     {{depto.id}}
+                </td>
+                <td class="px-1 py-4">
+                    <button @click = "handleEdit(depto)" class = "edit"></button>
                 </td>
             </tr>
         </tbody>
@@ -58,10 +61,10 @@
                 name: null,
                 managerName: null,
                 departList:[],
+                currendEdit: 0,
             }
         },
         mounted(){
-
                 axios.get("/api/departamentos", {
                 }).then(data => {
                      if(data.status == 200){
@@ -81,24 +84,50 @@
         },
         methods: {
             handleSubmit() {
+                alert(this.currendEdit);
+                if (this.currendEdit != 0){
+                    axios.put("/api/departamentos/"+this.currentEdit, {
+                        nome: this.name,
+                        id_gerente: this.managerName
+                    }).then(data => {
+                        if(data.status ==200){
+                            window.location.reload();
+                        }
+                        console.log(data);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                }else{
+                    axios.post("/api/departamentos", {
+                        nome: this.name,
+                        id_gerente: this.managerName
+                    }).then(data => {
+                        if(data.status ==201){
+                            window.location.reload();
+                        }
 
-                axios.post("/api/departamentos", {
-                     nome: this.name,
-                     id_gerente: this.managerName
-                 }).then(data => {
-                     if(data.status ==201){
-                        window.location.reload();
-                     }
+                        console.log(data);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                    this.currendEdit = 0;
+                }
 
-                    console.log(data);
-                 }).catch(error => {
-                    console.log(error);
-                 });
+
+                
 
 
 
 
                 //alert(JSON.stringify({ name: this.name, managerName: this.managerName }, null, 2));
+            },
+            handleEdit(value){
+                
+                document.getElementById("idNome").value = value.nome;
+                document.getElementById("idGerente").value = value.id_gerente;
+                document.getElementById("idBotao").innerHTML = "Editar";
+                this.currendEdit = value.id;
+
             }
         },
     }
@@ -151,5 +180,13 @@ input {
 .botaocadastrar {
     align-items: center;
     text-align: center;
+}
+
+.edit{
+    background-size:  15px 15px;
+    width: 15px;
+    height: 15px;
+    background-image : url('../../../assets/imgs/icon.png');
+    color: #fff;
 }
 </style>

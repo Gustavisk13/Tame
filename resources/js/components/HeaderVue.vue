@@ -263,12 +263,12 @@ header {
                 font-weight: 700;
                 font-size: 18px;
                 line-height: 22px;
-                width: 240px;
-                height: 48px;
-                border: 1px solid $white-color;
+                width: 300px;
+                height: 55px;
+                border: 4px solid $white-color;
                 border-radius: 8px;
                 text-align: center;
-                margin-top: 28px;
+                margin-top: 23px;
 
                 // button img{
                 //     margin: 0;
@@ -283,9 +283,11 @@ header {
 
         #exit-button {
             button {
+                position:absolute;
                 width: 182px;
                 height: 48px;
-                margin-top: 28px;
+                margin-top: 26px;
+                right:10px;
                 color: $white-color;
                 background-color: $green-color;
                 font-family: 'Montserrat';
