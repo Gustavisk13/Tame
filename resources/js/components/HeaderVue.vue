@@ -3,7 +3,7 @@
     <header>
         <div class="header-content">
             <div id="logo">
-                <img src="\images\Logo.png" alt="">
+                <img src="../../assets/imgs/logo.png" alt="">
             </div>
             <div id="call-button">
                 <button @click="showModal = true">Abrir chamado</button>

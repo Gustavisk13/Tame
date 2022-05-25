@@ -1,7 +1,7 @@
 <template>
  <div class="container-content">
     <div class="img-logo">
-        <img src="images\Logo.png" alt="">
+        <img src="../../assets/imgs/logo.png" alt="">
     </div>
     <div class="login">
         <div class="text-conta">
