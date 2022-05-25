@@ -74,7 +74,7 @@
 
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-400 text-sm font-medium">
-                                    {{element.createdAt.toLocaleDateString('pt-BR', {
+                                    {{element.created_at.toLocaleDateString('pt-BR', {
                                         day: '2-digit',
                                         month: 'long',
                                     })}}
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import draggable from 'vuedraggable';
 
 export default {
@@ -128,6 +129,7 @@ export default {
     data() {
         return {
             drag: false,
+            chamados: null,
             usuario: null,
             depto: null,
             columns: [
@@ -135,61 +137,25 @@ export default {
                     id: 'waiting',
                     title: 'Em espera',
                     color: '#040491',
-                    tasks: [
-                        {
-                            id: '5380012',
-                            title: 'Criação de relatório',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
                 {
                     id: 'progress',
                     title: 'Em progresso',
                     color: '#f77f00',
-                    tasks: [
-                        {
-                            id: '7380222',
-                            title: 'Bug no VTrine',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
                 {
                     id: 'review',
                     title: 'Homologação',
                     color: '#ff477e',
-                    tasks: [
-                        {
-                            id: '1132168',
-                            title: 'GPP não está funcionando',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
                 {
                     id: 'done',
                     title: 'Finalizado',
                     color: '#00cf80',
-                    tasks: [
-                        {
-                            id: '1230987',
-                            title: 'Erro de NF no VTrine',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
             ],
             currentDate: new Date().toLocaleDateString('pt-BR', {
@@ -216,12 +182,35 @@ export default {
         handleChangeTaskColumn(event) {
             const columnId = event.to.id;
             const task = event.item._underlying_vm_;
+            var stat;
 
             if (columnId === 'progress') {
                 this.startTimer(task);
             } else {
                 this.stopTimer(task);
             }
+
+
+            if (columnId === 'waiting') {
+                stat = 'OP';
+            }
+            else if(columnId === 'progress') {
+                stat = 'PR';
+            }
+            else if(columnId === 'review') {
+                stat = 'HM';
+            }else{
+                stat = 'OK';
+            }
+
+            axios.get('/api/chamados/'+task.id)
+                 .then(data=>{
+                    data.data.status = stat;
+                    axios.put('/api/chamados/'+task.id, data.data)
+                         .then(data=>{
+                             console.log(data.data);
+                         });
+                 });
         },
         startTimer(task) {
             task.timer = setInterval(() => {
@@ -233,6 +222,36 @@ export default {
         },
     },
     mounted(){
+            axios.get('/api/chamados')
+                 .then(data=>{
+                     this.chamados = data.data;
+
+                     for (let index = 0; index < this.chamados.length; index++) {
+                         var taskObj = {
+                            id: this.chamados[index].id,
+                            title: this.chamados[index].titulo,
+                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
+                            created_at: new Date(this.chamados[index].created_at),
+                            timer: null,
+                            stopwatch: 0
+                        }
+                        console.log(taskObj);
+                        if (this.chamados[index].status == 'OP') {
+                            this.columns[0].tasks.push(taskObj);
+                        }
+                        else if(this.chamados[index].status == 'PR'){
+                            this.columns[1].tasks.push(taskObj);
+                        }
+                        else if(this.chamados[index].status == 'HM'){
+                            this.columns[2].tasks.push(taskObj);
+                        }
+                        else if(this.chamados[index].status == 'OK'){
+                            this.columns[3].tasks.push(taskObj);
+                        }
+
+                     }
+                 });
+
             var cArr = document.cookie.split(';');
             for(var i=0;i < cArr.length;i++) {
             var cookie = cArr[i].split("=",2);
