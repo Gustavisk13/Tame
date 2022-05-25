@@ -3,25 +3,31 @@
         <div class="row">
             <div class="nomedep">
                 <span>Nome</span>
-                <input v-model="name" type="text" required>
+                <input id="idNome" v-model="name" type="text" required>
             </div>
             <div class="nomeger">
-                <span>Nome do Gerente</span>
-                <input v-model="managerName" type="text">
+                <span>ID do Gerente</span>
+                <input id="idGerente" v-model="managerName" type="text">
             </div>
         </div>
         <div class="botaocadastrar">
-            <button type="submit" class="cadastrar">
+            <button id="idBotao" type="submit" class="cadastrar">
                 Cadastrar departamento
             </button>
         </div>
     </form>
+    <div class="text-center">
+        <h1><b>Lista de Departamentos</b></h1>
+    </div>
 
-    <span>Lista de Departamentos</span>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-left text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+
             <tr>
+             <th scope="col" class="px-6 py-3">
+                    ID
+                </th>
                 <th scope="col" class="px-6 py-3">
                     Departamentos
                 </th>
@@ -29,20 +35,24 @@
                     ID Gerente
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    ID Departamento
+
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="depto in departList" :key="depto.nome" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                    {{depto.nome}}
+            <tr v-for="depto in departList" :key="depto.nome" class="bg-white border-b">
+                <th scope="row" class="px-6 py-4">
+                    {{depto.id}}
                 </th>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{depto.nome}}
+                </td>
                 <td class="px-6 py-4">
                     {{depto.id_gerente}}
                 </td>
-                <td class="px-6 py-4">
-                    {{depto.id}}
+
+                <td class="px-1 py-4">
+                    <button @click="handleEdit(depto)" class = "edit"></button>
                 </td>
             </tr>
         </tbody>
@@ -58,10 +68,11 @@
                 name: null,
                 managerName: null,
                 departList:[],
+                currendEdit: null,
             }
         },
         mounted(){
-
+                this.currendEdit = 0;
                 axios.get("/api/departamentos", {
                 }).then(data => {
                      if(data.status == 200){
@@ -81,24 +92,70 @@
         },
         methods: {
             handleSubmit() {
+                if (this.currendEdit != null){
 
-                axios.post("/api/departamentos", {
-                     nome: this.name,
-                     id_gerente: this.managerName
-                 }).then(data => {
-                     if(data.status ==201){
-                        window.location.reload();
-                     }
+                    var nomeEdit;
+                    var gerenteEdit;
+                    var holders = document.getElementById("idNome").placeholder;
+                    var valor = document.getElementById("idNome").value;
 
-                    console.log(data);
-                 }).catch(error => {
-                    console.log(error);
-                 });
+                    if(valor == ""){
+                        nomeEdit = holders;
+                    }else{
+                        nomeEdit = valor;
+                    }
 
+                    var holders = document.getElementById("idGerente").placeholder;
+                    var valor = document.getElementById("idGerente").value;
 
+                    if(valor == ""){
+                        gerenteEdit = holders;
+                    }else{
+                        gerenteEdit = valor;
+                    }
 
+                    axios.put("/api/departamentos/"+this.currendEdit, {
+                        nome: nomeEdit,
+                        id_gerente: gerenteEdit
+                    }).then(data => {
+                        if(data.status ==200){
+                            window.location.reload();
+                        }
+                        console.log(data);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                }else{
+                    axios.post("/api/departamentos", {
+                        nome: this.name,
+                        id_gerente: this.managerName
+                    }).then(data => {
+                        if(data.status ==201){
+                            window.location.reload();
+                        }
 
+                        console.log(data);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                    this.currendEdit = 0;
+                    document.getElementById("idBotao").innerHTML = "Cadastrar departamento";
+
+                }
                 //alert(JSON.stringify({ name: this.name, managerName: this.managerName }, null, 2));
+            },
+            handleEdit(value){
+
+                document.getElementById("idNome").placeholder = value.nome;
+                document.getElementById("idGerente").placeholder = value.id_gerente;
+
+                document.getElementById("idNome").value = value.nome;
+                document.getElementById("idGerente").value = value.id_gerente;
+                document.getElementById("idBotao").innerHTML = "Editar";
+
+
+                this.currendEdit = value.id;
+
             }
         },
     }
@@ -127,6 +184,13 @@
     font-size: 16px;
 }
 
+h1 {
+    font-size: 28px;
+    color: rgba(42,42,42,255);
+    padding-top: 10px;
+    margin-bottom: 5px;
+}
+
 input {
     margin-top: 7px;
     max-width: 624px;
@@ -151,5 +215,13 @@ input {
 .botaocadastrar {
     align-items: center;
     text-align: center;
+}
+
+.edit{
+    background-size:  15px 15px;
+    width: 15px;
+    height: 15px;
+    background-image : url('../../../assets/imgs/icon.png');
+    color: #fff;
 }
 </style>

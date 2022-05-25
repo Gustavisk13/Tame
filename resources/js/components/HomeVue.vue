@@ -1,9 +1,9 @@
 <template>
     <section class="pt-12 pb-24 px-24 w-full">
         <div class="flex align-center justify-between">
-            <h1 class="font-bold">Seja bem vindo, <span>Fulano</span></h1>
+            <h1 class="font-bold">Seja bem vindo, <span>{{usuario}}</span></h1>
 
-            <h2>Departamento: <span class="font-bold">Financeiro</span></h2>
+            <h2>Departamento: <span class="font-bold">{{depto}}</span></h2>
         </div>
 
         <ul class="columns-list mt-11 mb-6 w-full list-none overflow-x-auto flex gap-5 justify-between">
@@ -50,6 +50,15 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-400 text-sm font-medium">
+                                    {{element.created_at.toLocaleDateString('pt-BR', {
+                                        day: '2-digit',
+                                        month: 'long',
+                                    })}}
+                                </span>
+=======
                 <div class="flex justify-between items-center">
                     <span class="text-gray-400 text-sm font-medium">
                         {{ element.createdAt.toLocaleDateString('pt-BR', {
@@ -58,6 +67,7 @@
                             })
                         }}
                     </span>
+>>>>>>> development
 
                     <div class="py-1 px-2 rounded-full flex items-center justify-center"
                         :style="{ background: lightenBgColors[column.color] }">
@@ -159,6 +169,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import draggable from 'vuedraggable';
 import { VueFinalModal } from "vue-final-modal";
 
@@ -180,67 +191,37 @@ export default {
     data() {
         return {
             drag: false,
+<<<<<<< HEAD
+            chamados: null,
+            usuario: null,
+            depto: null,
+=======
             showModal: false,
+>>>>>>> development
             columns: [
                 {
                     id: 'waiting',
                     title: 'Em espera',
                     color: '#040491',
-                    tasks: [
-                        {
-                            id: '5380012',
-                            title: 'Criação de relatório',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
                 {
                     id: 'progress',
                     title: 'Em progresso',
                     color: '#f77f00',
-                    tasks: [
-                        {
-                            id: '7380222',
-                            title: 'Bug no VTrine',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
                 {
                     id: 'review',
                     title: 'Homologação',
                     color: '#ff477e',
-                    tasks: [
-                        {
-                            id: '1132168',
-                            title: 'GPP não está funcionando',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
                 {
                     id: 'done',
                     title: 'Finalizado',
                     color: '#00cf80',
-                    tasks: [
-                        {
-                            id: '1230987',
-                            title: 'Erro de NF no VTrine',
-                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
-                            createdAt: new Date(),
-                            timer: null,
-                            stopwatch: 0,
-                        }
-                    ],
+                    tasks: [],
                 },
             ],
             currentDate: new Date().toLocaleDateString('pt-BR', {
@@ -267,12 +248,35 @@ export default {
         handleChangeTaskColumn(event) {
             const columnId = event.to.id;
             const task = event.item._underlying_vm_;
+            var stat;
 
             if (columnId === 'progress') {
                 this.startTimer(task);
             } else {
                 this.stopTimer(task);
             }
+
+
+            if (columnId === 'waiting') {
+                stat = 'OP';
+            }
+            else if(columnId === 'progress') {
+                stat = 'PR';
+            }
+            else if(columnId === 'review') {
+                stat = 'HM';
+            }else{
+                stat = 'OK';
+            }
+
+            axios.get('/api/chamados/'+task.id)
+                 .then(data=>{
+                    data.data.status = stat;
+                    axios.put('/api/chamados/'+task.id, data.data)
+                         .then(data=>{
+                             console.log(data.data);
+                         });
+                 });
         },
         startTimer(task) {
             task.timer = setInterval(() => {
@@ -282,6 +286,49 @@ export default {
         stopTimer(task) {
             clearInterval(task.timer);
         },
+    },
+    mounted(){
+            axios.get('/api/chamados')
+                 .then(data=>{
+                     this.chamados = data.data;
+
+                     for (let index = 0; index < this.chamados.length; index++) {
+                         var taskObj = {
+                            id: this.chamados[index].id,
+                            title: this.chamados[index].titulo,
+                            userAvatar: 'https://avatars.dicebear.com/api/miniavs/tame.svg?b=lightblue',
+                            created_at: new Date(this.chamados[index].created_at),
+                            timer: null,
+                            stopwatch: 0
+                        }
+                        console.log(taskObj);
+                        if (this.chamados[index].status == 'OP') {
+                            this.columns[0].tasks.push(taskObj);
+                        }
+                        else if(this.chamados[index].status == 'PR'){
+                            this.columns[1].tasks.push(taskObj);
+                        }
+                        else if(this.chamados[index].status == 'HM'){
+                            this.columns[2].tasks.push(taskObj);
+                        }
+                        else if(this.chamados[index].status == 'OK'){
+                            this.columns[3].tasks.push(taskObj);
+                        }
+
+                     }
+                 });
+
+            var cArr = document.cookie.split(';');
+            for(var i=0;i < cArr.length;i++) {
+            var cookie = cArr[i].split("=",2);
+            cookie[0] = cookie[0].replace(/^\s+/,"");
+            if (cookie[0] == 'usuario'){ this.usuario = cookie[1];}
+            if (cookie[0] == 'depto'){ this.depto = cookie[1];}
+            }
+
+            if(this.depto =="null"){
+                this.depto = "N/A";
+            }
     },
     beforeUnmount() {
         this.columns.forEach(column => {

@@ -79,6 +79,7 @@ class ChamadosController extends Controller
         $chamado->titulo = $request->get('titulo');
         $chamado->descricao = $request->get('descricao');
         $chamado->impacto = $request->get('impacto');
+
         $chamado->status = $request->get('status');
 
 

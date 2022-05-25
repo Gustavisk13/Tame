@@ -3,20 +3,12 @@
         <div class="mb-6 grid gap-4 grid-cols-4 grid-rows-2">
             <div class="col-span-2" id="nome">
                 <label class="block">Nome completo</label>
-                <input v-model="name" type="text" name="nome" required />
+                <input id="idName" v-model="name" type="text" name="nome"  />
             </div>
             <div id="telefone">
                 <label class="block">Telefone</label>
-                <input v-model="phone" type="tel" name="telefone" required v-maska="'(##) # ####-####'"/>
+                <input id="idPhone"  v-model="phone" type="tel" name="telefone"  v-maska="'(##) # ####-####'"/>
             </div>
-            <!-- <div id="cargo">
-                <label class="block">Cargo</label>
-                <input v-model="position" type="text" name="cargo" required />
-            </div> -->
-            <!-- <div id="perfil">
-                <label class="block">Perfil</label>
-                <input v-model="profile" type="text" name="perfil" required />
-            </div> -->
             <div id="perfil">
                 <label class="block">Perfil</label>
                     <div>
@@ -42,11 +34,11 @@
 
             <div id="email">
                 <label class="block">E-mail</label>
-                <input v-model="email" type="email" name="email" required />
+                <input id="idEmail" v-model="email" type="email" name="email"  />
             </div>
             <div id="senha">
                 <label class="block">Senha</label>
-                <input v-model="password" type="password" name="senha" required />
+                <input id="idPassword" v-model="password" type="password" name="senha"  />
             </div>
             <div id="cadastra-container">
                 <input id="cadastra" type="submit" value="Cadastrar funcionário" />
@@ -59,11 +51,11 @@
         <h1><b>Lista de Funcionarios</b></h1>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Matricula
+                        ID
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Departamento
@@ -86,11 +78,14 @@
                     <th scope="col" class="px-6 py-3">
                         Criação
                     </th>
+                    <th scope="col" class="px-6 py-3">
+
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in employeelist" :key="user.nome" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                <tr v-for="user in employeelist" :key="user.nome" class="bg-white border-b">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {{user.id}}
                     </th>
                     <td class="px-6 py-4">
@@ -108,13 +103,15 @@
                     <td class="px-6 py-4">
                         {{user.senha}}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-4 py-4">
                         {{user.email}}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-5 py-4">
                         {{user.created_at}}
                     </td>
-
+                    <td class="px-1 py-4">
+                        <button @click="handleEdit(user)" class = "edit"></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -179,6 +176,15 @@ select{
     display: flex;
     align-items: flex-end;
 }
+
+.edit{
+    background-size:  15px 15px;
+    width: 15px;
+    height: 15px;
+    background-image : url('../../../assets/imgs/icon.png');
+    color: #fff;
+}
+
 </style>
 
 <script>
@@ -200,10 +206,13 @@ export default {
             email: null,
             password: null,
             departments:[],
-            employeelist:[]
+            employeelist:[],
+            currentEdit:null,
         };
     },
     mounted() {
+        this.currentEdit = 0;
+
         axios.get('/api/departamentos')
              .then(data =>{
                 this.departments = data.data;
@@ -226,9 +235,70 @@ export default {
     },
     methods: {
         handleSubmit() {
+            if (this.currendEdit != null){
 
-            console.log(this.department);
-            axios.post('/api/usuarios', {
+                    var nomeEdit;
+                    var emailEdit;
+                    var telefoneEdit;
+                    var senhaEdit;
+
+                    var holders = document.getElementById("idName").placeholder;
+                    var valor = document.getElementById("idName").value;
+
+                    if(valor == ""){
+                        nomeEdit = holders;
+                    }else{
+                        nomeEdit = valor;
+                    }
+
+
+                    var holders = document.getElementById("idPhone").placeholder;
+                    var valor = document.getElementById("idPhone").value;
+
+                    if(valor == ""){
+                        telefoneEdit = holders;
+                    }else{
+                        telefoneEdit = valor;
+                    }
+
+
+                    var holders = document.getElementById("idEmail").placeholder;
+                    var valor = document.getElementById("idEmail").value;
+
+                    if(valor == ""){
+                        emailEdit = holders;
+                    }else{
+                        emailEdit = valor;
+                    }
+
+
+                    var holders = document.getElementById("idPassword").placeholder;
+                    var valor = document.getElementById("idPassword").value;
+
+                    if(valor == ""){
+                        senhaEdit = holders;
+                    }else{
+                        senhaEdit = valor;
+                    }
+
+                    axios.put("/api/usuarios/"+this.currendEdit, {
+                        name: nomeEdit,
+                        phone: telefoneEdit,
+                        profile: document.getElementById("depProfile").value,
+                        department: document.getElementById("depUser").value,
+                        email: emailEdit,
+                        password: senhaEdit
+                    }).then(data => {
+                        if(data.status ==200){
+                            window.location.reload();
+                        }
+                        console.log(data);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                    this.currendEdit = 0;
+            }else{
+                axios.post('/api/usuarios', {
                     name: this.name,
                     phone: this.phone,
                     position: this.position,
@@ -241,6 +311,11 @@ export default {
                         window.location.reload();
                      }
                 })
+
+
+            }
+            this.currendEdit = 0;
+
         },
         deptParse(idDept){
             for (let index = 0; index < this.departments.length; index++) {
@@ -249,7 +324,29 @@ export default {
                 }
 
             }
-        }
+        },
+        handleEdit(value){
+
+                document.getElementById("idName").placeholder = value.nome;
+                document.getElementById("idPhone").placeholder = value.telefone;
+                document.getElementById("idEmail").placeholder = value.email;
+                document.getElementById("idPassword").placeholder = value.senha;
+
+                document.getElementById("idName").value = value.nome;
+                document.getElementById("idPhone").value = value.telefone;
+                document.getElementById("idEmail").value = value.email;
+                document.getElementById("idPassword").value = value.senha;
+
+                document.getElementById("depProfile").value = value.perfil;
+                document.getElementById("depUser").value = value.id_departamento;
+
+                document.getElementById("cadastra").value = "Editar";
+
+
+
+                this.currendEdit = value.id;
+
+            }
     },
 };
 </script>

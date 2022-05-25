@@ -1,7 +1,7 @@
 <template>
     <section class="pt-12 pb-24 px-24 w-full">
         <div class="flex align-center justify-between">
-            <h1 class="font-bold">Seja bem vindo, <span>Ciclano</span></h1>
+            <h1 class="font-bold">Seja bem vindo, <span>{{usuario}}</span></h1>
 
             <h2 class="font-bold">Administrador</h2>
         </div>
@@ -46,7 +46,21 @@ export default {
                 month: 'long',
                 year: 'numeric',
             }),
+            usuario:null,
         }
+    },
+        mounted(){
+            var cArr = document.cookie.split(';');
+            for(var i=0;i < cArr.length;i++) {
+            var cookie = cArr[i].split("=",2);
+            cookie[0] = cookie[0].replace(/^\s+/,"");
+            if (cookie[0] == 'usuario'){ this.usuario = cookie[1];}
+            if (cookie[0] == 'depto'){ this.depto = cookie[1];}
+            }
+
+            if(this.depto =="null"){
+                this.depto = "N/A";
+            }
     },
 }
 </script>
