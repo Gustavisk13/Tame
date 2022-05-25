@@ -124,14 +124,15 @@ body {
                      email: this.user,
                      senha: this.pass
                  }).then(data => {
-                            console.log(data.data);
+                        console.log(data.data);
                         if(data.data === false ){
                             alert("Usuário ou senha incorretos");
                         }else{
-                        window.location.href = "/home";
+                            document.cookie = "usuario="+this.user;
+                            window.location.href = "/home";
                         }
                  }).catch(error => {
-                     console.log(error);
+                    alert("Usuário ou senha incorretos");
                  });
             }
         }

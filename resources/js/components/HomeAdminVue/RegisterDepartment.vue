@@ -21,31 +21,33 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+
             <tr>
+             <th scope="col" class="px-1 py-3">
+                    ID
+                </th>
                 <th scope="col" class="px-6 py-3">
                     Departamentos
                 </th>
                 <th scope="col" class="px-6 py-3">
                     ID Gerente
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    ID Departamento
-                </th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="depto in departList" :key="depto.nome" class="bg-white border-b">
+                <td class="px-6 py-4">
+                    {{depto.id}}
+                </td>
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {{depto.nome}}
                 </th>
                 <td class="px-6 py-4">
                     {{depto.id_gerente}}
                 </td>
-                <td class="px-6 py-4">
-                    {{depto.id}}
-                </td>
+
                 <td class="px-1 py-4">
-                    <button @click = "handleEdit(depto)" class = "edit"></button>
+                    <button @click="handleEdit(depto)" class = "edit"></button>
                 </td>
             </tr>
         </tbody>
@@ -61,10 +63,11 @@
                 name: null,
                 managerName: null,
                 departList:[],
-                currendEdit: 0,
+                currendEdit: null,
             }
         },
         mounted(){
+                this.currendEdit = 0;
                 axios.get("/api/departamentos", {
                 }).then(data => {
                      if(data.status == 200){
@@ -84,11 +87,31 @@
         },
         methods: {
             handleSubmit() {
-                alert(this.currendEdit);
-                if (this.currendEdit != 0){
-                    axios.put("/api/departamentos/"+this.currentEdit, {
-                        nome: this.name,
-                        id_gerente: this.managerName
+                if (this.currendEdit != null){
+
+                    var nomeEdit;
+                    var gerenteEdit;
+                    var holders = document.getElementById("idNome").placeholder;
+                    var valor = document.getElementById("idNome").value;
+
+                    if(valor == ""){
+                        nomeEdit = holders;
+                    }else{
+                        nomeEdit = valor;
+                    }
+
+                    var holders = document.getElementById("idGerente").placeholder;
+                    var valor = document.getElementById("idGerente").value;
+
+                    if(valor == ""){
+                        gerenteEdit = holders;
+                    }else{
+                        gerenteEdit = valor;
+                    }
+
+                    axios.put("/api/departamentos/"+this.currendEdit, {
+                        nome: nomeEdit,
+                        id_gerente: gerenteEdit
                     }).then(data => {
                         if(data.status ==200){
                             window.location.reload();
@@ -111,21 +134,21 @@
                         console.log(error);
                     });
                     this.currendEdit = 0;
+                    document.getElementById("idBotao").innerHTML = "Cadastrar departamento";
+
                 }
-
-
-                
-
-
-
-
                 //alert(JSON.stringify({ name: this.name, managerName: this.managerName }, null, 2));
             },
             handleEdit(value){
-                
+
+                document.getElementById("idNome").placeholder = value.nome;
+                document.getElementById("idGerente").placeholder = value.id_gerente;
+
                 document.getElementById("idNome").value = value.nome;
                 document.getElementById("idGerente").value = value.id_gerente;
                 document.getElementById("idBotao").innerHTML = "Editar";
+
+
                 this.currendEdit = value.id;
 
             }

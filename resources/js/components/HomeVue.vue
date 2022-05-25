@@ -1,7 +1,7 @@
 <template>
     <section class="pt-12 pb-24 px-24 w-full">
         <div class="flex align-center justify-between">
-            <h1 class="font-bold">Seja bem vindo, <span>Fulano</span></h1>
+            <h1 class="font-bold">Seja bem vindo, <span>{{usuario}}</span></h1>
 
             <h2>Departamento: <span class="font-bold">Financeiro</span></h2>
         </div>
@@ -128,6 +128,7 @@ export default {
     data() {
         return {
             drag: false,
+            usuario: null,
             columns: [
                 {
                     id: 'waiting',
@@ -229,6 +230,14 @@ export default {
         stopTimer(task) {
             clearInterval(task.timer);
         },
+    },
+    mounted(){
+            var cArr = document.cookie.split(';');
+            for(var i=0;i < cArr.length;i++) {
+            var cookie = cArr[i].split("=",2);
+            cookie[0] = cookie[0].replace(/^\s+/,"");
+            if (cookie[0] == 'usuario'){ this.usuario = cookie[1];}
+            }
     },
     beforeUnmount() {
         this.columns.forEach(column => {

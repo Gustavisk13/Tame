@@ -2,12 +2,12 @@
     <form @submit.prevent="handleSubmit">
         <label for="name" id="nomep">Categoria</label>
         <div id="nomediv">
-            <input v-model="categoria" type="text" name="name1" id="name" required>
+            <input v-model="categoria" type="text" name="name1" id="name" >
         </div>
         <label for="name" id="nomep">Categoria Pai</label>
         <div id="nomediv">
-            <input v-model="pai" type="text" name="name2" id="name">
-            <input type="submit" value="Cadastrar categoria" />
+            <input v-model="pai" type="text" name="name2" id="name2">
+            <input id="botao" type="submit" value="Cadastrar categoria" />
         </div>
     </form>
     <span>Lista de Categorias</span>
@@ -38,6 +38,9 @@
                     <td class="px-6 py-4">
                         {{ categ.id }}
                     </td>
+                    <td class="px-1 py-4">
+                        <button @click="handleEdit(categ)" class = "edit"></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -51,10 +54,12 @@ export default {
         return {
             categoria: null,
             pai: null,
-            categList: []
+            categList: [],
+            currendEdit:null,
         }
     },
     mounted() {
+        this.currendEdit = null;
         axios.get("/api/categorias", {
         }).then(data => {
             if (data.status == 200) {
@@ -73,17 +78,71 @@ export default {
     },
     methods: {
         handleSubmit() {
-            axios.post("/api/categorias", {
-                nome: this.categoria,
-                id_categoria_pai: this.pai
-            }).then(data => {
-                console.log(data);
-                window.location.reload();
-            }).catch(error => {
-                console.log(error);
-            });
+            if (this.currendEdit != null){
+
+                    var nomeEdit;
+                    var paiEdit;
+
+                    var holders = document.getElementById("name").placeholder;
+                    var valor = document.getElementById("name").value;
+
+                    if(valor == ""){
+                        nomeEdit = holders;
+                    }else{
+                        nomeEdit = valor;
+                    }
+
+                    var holders = document.getElementById("name2").placeholder;
+                    var valor = document.getElementById("name2").value;
+
+                    if(valor == ""){
+                        paiEdit = holders;
+                    }else{
+                        paiEdit = valor;
+                    }
+
+                    axios.put("/api/categorias/"+this.currendEdit, {
+                        nome: nomeEdit,
+                        id_categoria_pai: paiEdit
+                    }).then(data => {
+                        if(data.status ==200){
+                            window.location.reload();
+                        }
+                        console.log(data);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                    this.currendEdit = null;
+                }else{
+                    axios.post("/api/categorias", {
+                        nome: this.categoria,
+                        id_categoria_pai: this.pai
+                    }).then(data => {
+                        console.log(data);
+                        window.location.reload();
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                }
+                this.currendEdit = null;
+
         },
+        handleEdit(value){
+
+                document.getElementById("name").placeholder = value.nome;
+                document.getElementById("name2").placeholder = value.id_categoria_pai;
+
+                document.getElementById("name").value = value.nome;
+                document.getElementById("name2").value = value.id_categoria_pai;
+
+                document.getElementById("botao").value = "Editar";
+
+
+                this.currendEdit = value.id;
+
+            }
     }
+
 }
 </script>
 
@@ -99,7 +158,7 @@ export default {
     color: #515151;
 }
 
-#name {
+#name,#name2{
     height: 40px;
     width: 601px;
     border-color: #E0E0E0;
@@ -118,5 +177,13 @@ input[type="submit"] {
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
+}
+
+.edit{
+    background-size:  15px 15px;
+    width: 15px;
+    height: 15px;
+    background-image : url('../../../assets/imgs/icon.png');
+    color: #fff;
 }
 </style>

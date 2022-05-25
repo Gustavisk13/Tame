@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UsuariosController extends Controller
 {
@@ -18,15 +19,19 @@ class UsuariosController extends Controller
     function checkLogin(Request $request)
     {
 
-     $email = $request->get('email');
-     $user = Usuarios::where('email', $email)->first();
-     $senha = $user->senha;
-     if($senha === $request->get('senha'))
-        //return view('home');
+        $email = $request->get('email');
+        try {
+            $user = Usuarios::where('email', $email)->first();
+        } catch (\Throwable $th) {
+            return "false";
+        }
+        $senha = $user->senha;
+        if($senha === $request->get('senha'))
+            //return view('home');
             return "home";
-     else {
-         return"false";
-     }
+        else {
+            return "false";
+        }
 
     }
     /**
@@ -90,12 +95,12 @@ class UsuariosController extends Controller
 
         $user = Usuarios::findOrFail($id);
 
-        $user->nome = $request->get('nome');
-        $user->telefone = $request->get('telefone');
-        $user->perfil = $request->get('perfil');
-        $user->senha = $request->get('senha');
+        $user->nome = $request->get('name');
+        $user->telefone = $request->get('phone');
+        $user->perfil = $request->get('profile');
+        $user->senha = $request->get('password');
         $user->email = $request->get('email');
-        $user->id_departamento = $request->get('id_departamento');
+        $user->id_departamento = $request->get('department');
 
 
         $user->save();
