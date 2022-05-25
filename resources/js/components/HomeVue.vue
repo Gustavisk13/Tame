@@ -50,24 +50,14 @@
                     </div>
                 </div>
 
-<<<<<<< HEAD
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-400 text-sm font-medium">
-                                    {{element.created_at.toLocaleDateString('pt-BR', {
-                                        day: '2-digit',
-                                        month: 'long',
-                                    })}}
-                                </span>
-=======
                 <div class="flex justify-between items-center">
                     <span class="text-gray-400 text-sm font-medium">
-                        {{ element.createdAt.toLocaleDateString('pt-BR', {
+                        {{ element.created_at.toLocaleDateString('pt-BR', {
                                 day: '2-digit',
                                 month: 'long',
                             })
                         }}
                     </span>
->>>>>>> development
 
                     <div class="py-1 px-2 rounded-full flex items-center justify-center"
                         :style="{ background: lightenBgColors[column.color] }">
@@ -191,13 +181,10 @@ export default {
     data() {
         return {
             drag: false,
-<<<<<<< HEAD
             chamados: null,
             usuario: null,
             depto: null,
-=======
             showModal: false,
->>>>>>> development
             columns: [
                 {
                     id: 'waiting',
@@ -291,7 +278,6 @@ export default {
             axios.get('/api/chamados')
                  .then(data=>{
                      this.chamados = data.data;
-
                      for (let index = 0; index < this.chamados.length; index++) {
                          var taskObj = {
                             id: this.chamados[index].id,
