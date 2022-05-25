@@ -4,39 +4,44 @@
         <div id="nomediv">
             <input v-model="categoria" type="text" name="name1" id="name" >
         </div>
-        <label for="name" id="nomep">Categoria Pai</label>
+        <label for="name" id="nomep">ID Categoria Pai</label>
         <div id="nomediv">
             <input v-model="pai" type="text" name="name2" id="name2">
             <input id="botao" type="submit" value="Cadastrar categoria" />
         </div>
     </form>
-    <span>Lista de Categorias</span>
+    <div class="text-center">
+        <h1><b>Lista de Categorias</b></h1>
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>
+                    <th scope="col" class="px-6 py-3">
+                        ID
+                    </th>
                     <th scope="col" class="px-6 py-3">
                         Categorias
                     </th>
                     <th scope="col" class="px-6 py-3">
                         ID Pai
                     </th>
-                     <th scope="col" class="px-6 py-3">
-                        ID Categoria
+                    <th scope="col" class="px-6 py-3">
+
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="categ in categList" :key="categ.nome"
                     class="bg-white border-b ">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ categ.nome }}
+                    <th scope="row" class="px-6 py-4">
+                        {{ categ.id }}
                     </th>
-                    <td class="px-6 py-4">
-                        {{ categ.id_categoria_pai }}
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{ categ.nome }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ categ.id }}
+                        {{ categ.id_categoria_pai }}
                     </td>
                     <td class="px-1 py-4">
                         <button @click="handleEdit(categ)" class = "edit"></button>
@@ -177,6 +182,13 @@ input[type="submit"] {
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
+}
+
+h1 {
+    font-size: 28px;
+    color: rgba(42,42,42,255);
+    padding-top: 10px;
+    margin-bottom: 5px;
 }
 
 .edit{

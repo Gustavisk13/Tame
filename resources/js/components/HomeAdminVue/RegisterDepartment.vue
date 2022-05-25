@@ -16,14 +16,16 @@
             </button>
         </div>
     </form>
-    <span>Lista de Departamentos</span>
+    <div class="text-center">
+        <h1><b>Lista de Departamentos</b></h1>
+    </div>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 ">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-200">
 
             <tr>
-             <th scope="col" class="px-1 py-3">
+             <th scope="col" class="px-6 py-3">
                     ID
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -32,16 +34,19 @@
                 <th scope="col" class="px-6 py-3">
                     ID Gerente
                 </th>
+                <th scope="col" class="px-6 py-3">
+
+                </th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="depto in departList" :key="depto.nome" class="bg-white border-b">
-                <td class="px-6 py-4">
+                <th scope="row" class="px-6 py-4">
                     {{depto.id}}
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    {{depto.nome}}
                 </th>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{depto.nome}}
+                </td>
                 <td class="px-6 py-4">
                     {{depto.id_gerente}}
                 </td>
@@ -177,6 +182,13 @@
     font-family: 'montserrat';
     font-weight: 400;
     font-size: 16px;
+}
+
+h1 {
+    font-size: 28px;
+    color: rgba(42,42,42,255);
+    padding-top: 10px;
+    margin-bottom: 5px;
 }
 
 input {
